@@ -1,6 +1,7 @@
 import tornado.ioloop
 import tornado.web
 # import json
+port = 8888
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -24,5 +25,11 @@ def make_app():
 
 if __name__ == "__main__":
     app = make_app()
-    app.listen(8888)
-    tornado.ioloop.IOLoop.current().start()
+    app.listen(port)
+    print('web server is started @ http://localhost:' + str(port))
+    # tornado.ioloop.IOLoop.current().start()
+    # signal : CTRL + BREAK on windows or CTRL + C on linux
+    try:
+        tornado.ioloop.IOLoop.current().start()
+    except KeyboardInterrupt:
+        tornado.ioloop.IOLoop.current().stop()
